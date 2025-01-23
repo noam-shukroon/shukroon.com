@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shukroon</title>
+    <link rel="icon" href="11-resources\02-images\noam-shukroon.svg" />
+
     <style>
         body {
             margin: 0;
@@ -17,12 +19,35 @@
         .svg-container {
             width: 50%;
             height: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
     <div class="svg-container">
-        <img src="11-resources\02-images\noam-shukroon.svg" alt="Custom SVG" />
+        <img id="customSVG" src="11-resources\02-images\noam-shukroon.svg" alt="Custom SVG" />
     </div>
+
+    <script>
+        let originalSrc = '11-resources\\02-images\\noam-shukroon.svg';
+        let newSrc = '11-resources\\02-images\\yo.svg';
+        let isNew = false;
+
+        document.getElementById('customSVG').addEventListener('click', function() {
+            if (isNew) {
+                this.src = originalSrc; // Switch back to the original SVG
+            } else {
+                this.src = newSrc; // Switch to the new SVG
+            }
+            isNew = !isNew; // Toggle the flag
+        });
+    </script>
+
 </body>
 </html>
