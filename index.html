@@ -3,51 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shukroon</title>
-    <link rel="icon" href="11-resources\02-images\noam-shukroon.svg" />
+    <title>Smooth Scroll with Dynamic Top Size</title>
+    <link rel="icon" href="11-resources/02-images/noam-shukroon.svg" />
 
     <style>
         body {
             margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            height: 200vh; /* Enough height for scrolling */
             background-color: #E6DDC5;
         }
 
         .svg-container {
-            width: 50%;
+            position: fixed;
+            top: 50%; /* Start centered vertically */
+            left: 50%; /* Centered horizontally */
+            transform: translate(-50%, -50%); /* Center the element */
+            width: 50vw; /* Start large */
             height: auto;
-            display: flex;
-            justify-content: center;
+            z-index: 1000; /* Ensure it stays on top */
+            transition: all 0.3s ease; /* Sync all property transitions */
         }
 
-        img {
-            width: 100%;
-            height: auto;
+        .svg-container img {
+            width: 100%; /* Image takes up the full container's width */
+            height: auto; /* Maintain aspect ratio */
         }
     </style>
 </head>
 <body>
-    <div class="svg-container">
-        <img id="customSVG" src="11-resources\02-images\noam-shukroon.svg" alt="Custom SVG" />
+    <div class="svg-container" id="homeButton">
+        <img src="11-resources/02-images/noam-shukroon.svg" alt="Home" />
     </div>
 
     <script>
-        let originalSrc = '11-resources\\02-images\\noam-shukroon.svg';
-        let newSrc = '11-resources\\02-images\\yo.svg';
-        let isNew = false;
+        const svgContainer = document.querySelector('.svg-container');
+        const threshold = window.innerHeight * 0.25; // 25% of viewport height
 
-        document.getElementById('customSVG').addEventListener('click', function() {
-            if (isNew) {
-                this.src = originalSrc; // Switch back to the original SVG
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const windowWidth = window.innerWidth;
+
+            if (scrollY <= threshold) {
+                // Transition from center to top
+                const progress = scrollY / threshold; // 0 at start, 1 at threshold
+                const newWidth = 50 - progress * 30; // Shrinks from 50vw to 20vw
+                const newTop = 50 - progress * 50; // Moves from 50% to 0%
+                const newTranslateY = -50 + progress * 50; // Smooth vertical alignment
+
+                svgContainer.style.width = `${newWidth}vw`;
+                svgContainer.style.top = `${newTop}%`;
+                svgContainer.style.transform = `translate(-50%, ${newTranslateY}%)`;
             } else {
-                this.src = newSrc; // Switch to the new SVG
+                // Lock the image at the top with dynamic width based on window size
+                const dynamicWidth = windowWidth * 0.2; // Set width relative to window size
+                svgContainer.style.width = `${dynamicWidth}px`; // Width adjusted to be responsive
+                svgContainer.style.top = `0`; // Top of the page
+                svgContainer.style.transform = `translate(-50%, 0)`; // Perfect alignment at the top
             }
-            isNew = !isNew; // Toggle the flag
         });
     </script>
-
 </body>
 </html>
