@@ -7,60 +7,40 @@
     <link rel="icon" href="11-resources/02-images/noam-shukroon.svg" />
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&family=DM+Serif+Display&display=swap');
+
         body {
             margin: 0;
-            height: 200vh; /* Enough height for scrolling */
+            font-family: 'DM Serif Display', serif;
             background-color: #E6DDC5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
         }
 
-        .svg-container {
-            position: fixed;
-            top: 50%; /* Start centered vertically */
-            left: 50%; /* Centered horizontally */
-            transform: translate(-50%, -50%); /* Center the element */
-            width: 50vw; /* Start large */
-            height: auto;
-            z-index: 1000; /* Ensure it stays on top */
-            transition: all 0.3s ease; /* Sync all property transitions */
+        h1 {
+            font-size: 10vw;
+            font-weight: 600;
+            margin: 0;
+            color: #000;
+            text-align: center;
         }
 
-        .svg-container img {
-            width: 100%; /* Image takes up the full container's width */
-            height: auto; /* Maintain aspect ratio */
+        h2 {
+            font-size: 4vw;
+            font-weight: 400;
+            margin: 5;
+            color: #000;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="svg-container" id="homeButton">
-        <img src="11-resources/02-images/noam-shukroon.svg" alt="Home" />
-    </div>
-
-    <script>
-        const svgContainer = document.querySelector('.svg-container');
-        const threshold = window.innerHeight * 0.25; // 25% of viewport height
-
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const windowWidth = window.innerWidth;
-
-            if (scrollY <= threshold) {
-                // Transition from center to top
-                const progress = scrollY / threshold; // 0 at start, 1 at threshold
-                const newWidth = 50 - progress * 30; // Shrinks from 50vw to 20vw
-                const newTop = 50 - progress * 50; // Moves from 50% to 0%
-                const newTranslateY = -50 + progress * 50; // Smooth vertical alignment
-
-                svgContainer.style.width = `${newWidth}vw`;
-                svgContainer.style.top = `${newTop}%`;
-                svgContainer.style.transform = `translate(-50%, ${newTranslateY}%)`;
-            } else {
-                // Lock the image at the top with dynamic width based on window size
-                const dynamicWidth = windowWidth * 0.2; // Set width relative to window size
-                svgContainer.style.width = `${dynamicWidth}px`; // Width adjusted to be responsive
-                svgContainer.style.top = `0`; // Top of the page
-                svgContainer.style.transform = `translate(-50%, 0)`; // Perfect alignment at the top
-            }
-        });
-    </script>
+    <h1>SHUKROON</h1>
+    <h2>Noam@Shukroon.com</h2>
 </body>
 </html>
