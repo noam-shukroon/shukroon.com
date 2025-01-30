@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shukroon</title>
     <link rel="icon" href="11-resources/02-images/noam-shukroon.svg" />
-
+    
     <style>
         @font-face {
-            font-family: 'Limelight';
-            src: url('./21-global/03-fonts/Limelight-Regular.ttf') format('truetype');
+            font-family: 'EBGaramond-VariableFont_wght';
+            src: url('./21-global/03-fonts/EBGaramond-VariableFont_wght.ttf') format('truetype');
         }
 
         body {
             margin: 0;
-            font-family: 'Limelight', sans-serif;
+            font-family: 'EBGaramond-VariableFont_wght', sans-serif;
             background-color: #E6E2D6;
             color: #333;
             display: flex;
@@ -23,44 +23,48 @@
             justify-content: center;
             height: 100vh;
             position: relative;
-        }
-
-        .content {
             text-align: center;
         }
 
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 3vh; /* Adds space between the elements */
+        }
+
         h1 {
-            font-size: 10vw;
-            font-weight: 600;
+            font-size: clamp(4rem, 10vw, 10rem); /* Font size scales from 4rem to 10rem based on viewport */
+            font-weight: 900;
             margin: 0;
             color: #000;
         }
 
         h2 {
-            font-size: 4vw;
-            font-weight: 400;
-            margin: 1;
+            font-size: clamp(2rem, 5vw, 5rem); /* Font size scales from 2rem to 5rem based on viewport */
+            font-weight: 600;
+            margin: 0;
             color: #000;
         }
 
         .logo {
-            width: 25vw;
-            max-width: 150px;
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(15deg);
+            height: 60vw; /* Scales logo based on viewport width */
+            max-height: 50vh; /* Restrict height on large screens */
+            transform: rotate(15deg);
         }
+
     </style>
 </head>
 <body>
     <div class="content">
         <h1>SHUKROON</h1>
+
+        <a href="index.html">
+            <img src="11-resources/02-images/sphere.svg" alt="Logo" class="logo">
+        </a>
+
         <h2>Noam@Shukroon.com</h2>
     </div>
-    
-    <a href="index.html">
-        <img src="11-resources/02-images/sphere.svg" alt="Logo" class="logo">
-    </a>
 </body>
 </html>
