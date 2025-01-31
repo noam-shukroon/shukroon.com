@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Wireframe Sphere</title>
+    <title>Thinner Wireframe Sphere</title>
     <style>
         body { margin: 0; }
         canvas { display: block; }
@@ -14,78 +14,72 @@
     <script>
         // Scene setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xE6E2D6);  // Set background color
+        scene.background = new THREE.Color(0xE6E2D6);
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Wireframe material with 3px thick lines
-        const material = new THREE.LineBasicMaterial({ 
-            color: 0x000000,
-            linewidth: 3  // Set line thickness to 3px
-        });
-
-        // Create latitude and longitude lines for the wireframe sphere
         const sphereRadius = 5;
-        const latitudeLines = 20;  // Reduced number of latitude lines for smoother appearance
-        const longitudeLines = 40;  // Reduced number of longitude lines for smoother appearance
+        const latitudeLines = 15;  // Number of horizontal lines
+        const longitudeLines = 20; // Number of vertical lines
+        const tubeRadius = 0.02;   // Thinner lines
+        const radialSegments = 10; // Number of segments around the tube
 
-        // Create the longitude lines (vertical lines)
+        const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
+
+        // Function to create tubes (thick lines)
+        function createTube(pathPoints) {
+            const curve = new THREE.CatmullRomCurve3(pathPoints); // Smooth curve
+            const tubeGeometry = new THREE.TubeGeometry(curve, 100, tubeRadius, radialSegments, false);
+            const tube = new THREE.Mesh(tubeGeometry, material);
+            scene.add(tube);
+        }
+
+        // Create smooth latitude tubes (horizontal circles)
+        for (let i = 1; i < latitudeLines; i++) {
+            const latitudeAngle = (i / latitudeLines) * Math.PI - Math.PI / 2; // Latitude angle
+            const pathPoints = [];
+
+            for (let j = 0; j <= 100; j++) { // High resolution for smoothness
+                const longitudeAngle = (j / 100) * 2 * Math.PI;
+
+                const x = sphereRadius * Math.cos(latitudeAngle) * Math.cos(longitudeAngle);
+                const y = sphereRadius * Math.sin(latitudeAngle);
+                const z = sphereRadius * Math.cos(latitudeAngle) * Math.sin(longitudeAngle);
+
+                pathPoints.push(new THREE.Vector3(x, y, z));
+            }
+
+            createTube(pathPoints);
+        }
+
+        // Create smooth longitude tubes (vertical circles)
         for (let i = 0; i < longitudeLines; i++) {
-            const geometry = new THREE.BufferGeometry();
-            const positions = [];
+            const longitudeAngle = (i / longitudeLines) * 2 * Math.PI;
+            const pathPoints = [];
 
-            for (let j = 0; j <= latitudeLines; j++) {
-                const latitude = Math.PI * (j / latitudeLines - 0.5);  // Latitude angle
-                const longitude = (i / longitudeLines) * 2 * Math.PI;  // Longitude angle
+            for (let j = 0; j <= 100; j++) { // High resolution for smoothness
+                const latitudeAngle = (j / 100) * Math.PI - Math.PI / 2;
 
-                const x = sphereRadius * Math.cos(latitude) * Math.cos(longitude);
-                const y = sphereRadius * Math.sin(latitude);
-                const z = sphereRadius * Math.cos(latitude) * Math.sin(longitude);
+                const x = sphereRadius * Math.cos(latitudeAngle) * Math.cos(longitudeAngle);
+                const y = sphereRadius * Math.sin(latitudeAngle);
+                const z = sphereRadius * Math.cos(latitudeAngle) * Math.sin(longitudeAngle);
 
-                positions.push(x, y, z);
+                pathPoints.push(new THREE.Vector3(x, y, z));
             }
 
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-            const line = new THREE.Line(geometry, material);
-            scene.add(line);
+            createTube(pathPoints);
         }
 
-        // Create the latitude lines (horizontal lines)
-        for (let i = 0; i < latitudeLines; i++) {
-            const geometry = new THREE.BufferGeometry();
-            const positions = [];
-
-            const latitude = Math.PI * (i / latitudeLines - 0.5);  // Latitude angle
-
-            for (let j = 0; j <= longitudeLines; j++) {
-                const longitude = (j / longitudeLines) * 2 * Math.PI;  // Longitude angle
-
-                const x = sphereRadius * Math.cos(latitude) * Math.cos(longitude);
-                const y = sphereRadius * Math.sin(latitude);
-                const z = sphereRadius * Math.cos(latitude) * Math.sin(longitude);
-
-                positions.push(x, y, z);
-            }
-
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-            const line = new THREE.Line(geometry, material);
-            scene.add(line);
-        }
-
-        // Camera position
+        // Camera setup
         camera.position.z = 15;
 
-        // Reset the rotation (no tilt)
-        scene.rotation.x = 0;
-        scene.rotation.z = 0;
-
-        // Rendering loop (without rotation)
+        // Rendering loop
         function animate() {
             renderer.render(scene, camera);
-            requestAnimationFrame(animate); // Keep rendering without rotating
+            requestAnimationFrame(animate);
         }
 
         animate();
