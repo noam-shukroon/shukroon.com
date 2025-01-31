@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shukroon</title>
+    <title>Thinner Wireframe Sphere with Rotation and SHUKROON</title>
     <link rel="icon" href="11-resources/02-images/noam-shukroon.svg" />
     
     <style>
@@ -13,6 +13,7 @@
         }
 
         :root {
+            --box-size: clamp(5rem, 15vw, 10rem); /* Box size */
             --gap-size: 4rem;
         }
 
@@ -59,6 +60,62 @@
             margin: 0;
             color: #000;
         }
+
+        .box-container {
+            perspective: 1000px; /* Adds 3D effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: calc(2 * var(--box-size));
+            height: calc(2 * var(--box-size));
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateBox 10s infinite linear;
+        }
+
+        .box .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            border: 3px solid #000;
+        }
+
+        .box .front {
+            transform: translateZ(var(--box-size));
+        }
+
+        .box .back {
+            transform: rotateY(180deg) translateZ(var(--box-size));
+        }
+
+        .box .left {
+            transform: rotateY(-90deg) translateZ(var(--box-size));
+        }
+
+        .box .right {
+            transform: rotateY(90deg) translateZ(var(--box-size));
+        }
+
+        .box .top {
+            transform: rotateX(90deg) translateZ(var(--box-size));
+        }
+
+        .box .bottom {
+            transform: rotateX(-90deg) translateZ(var(--box-size));
+        }
+
+        @keyframes rotateBox {
+            0% {
+                transform: rotateY(0);
+            }
+            100% {
+                transform: rotateY(-360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -84,7 +141,7 @@
         // Function to create tubes (thick lines)
         function createTube(pathPoints) {
             const curve = new THREE.CatmullRomCurve3(pathPoints); // Smooth curve
-            const tubeGeometry = new THREE.TubeGeometry(curve, 75, tubeRadius, radialSegments, false);
+            const tubeGeometry = new THREE.TubeGeometry(curve, 100, tubeRadius, radialSegments, false);
             const tube = new THREE.Mesh(tubeGeometry, material);
             scene.add(tube);
         }
@@ -125,14 +182,12 @@
             createTube(pathPoints);
         }
 
-        // Sphere rotation with random speeds
-        let rotationSpeedX = (Math.random() * 0.006 - 0.003); // between -0.004 and 0.004
-        let rotationSpeedY = (Math.random() * 0.006 - 0.003); // between -0.004 and 0.004
+        // Sphere rotation
+        let rotationSpeed = 0.005; // Adjust speed as needed
 
         // Rendering loop with sphere rotation
         function animate() {
-            scene.rotation.y += rotationSpeedY;
-            scene.rotation.x += rotationSpeedX;
+            scene.rotation.y += rotationSpeed; // Rotate clockwise on Y-axis
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
@@ -149,6 +204,19 @@
 
     <div class="content">
         <h1>SHUKROON</h1>
+
+        <div class="box-container">
+            <div class="box">
+                <!-- 3D box faces -->
+                <div class="face front"></div>
+                <div class="face back"></div>
+                <div class="face left"></div>
+                <div class="face right"></div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
+            </div>
+        </div>
+
         <h2>Noam@Shukroon.com</h2>
     </div>
 </body>
