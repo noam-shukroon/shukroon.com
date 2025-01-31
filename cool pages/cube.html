@@ -7,13 +7,19 @@
     <link rel="icon" href="11-resources/02-images/noam-shukroon.svg" />
     
     <style>
+        @font-face {
+            font-family: 'EBGaramond-VariableFont_wght';
+            src: url('./21-global/03-fonts/EBGaramond-VariableFont_wght.ttf') format('truetype');
+        }
 
         :root {
             --box-size: clamp(5rem, 15vw, 10rem); /* Box size */
+            --gap-size: 4rem;
         }
 
         body {
             margin: 0;
+            font-family: 'EBGaramond-VariableFont_wght', sans-serif;
             background-color: #E6E2D6;
             color: #333;
             display: flex;
@@ -21,6 +27,34 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            text-align: center;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--gap-size); /* Dynamic gap */
+
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin: 0;
+            color: #000;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 600;
+            margin: 0;
+            color: #000;
+        }
+
+        a {
+            text-decoration: none;
         }
 
         .box-container {
@@ -81,16 +115,24 @@
     </style>
 </head>
 <body>
-    <div class="box-container">
-        <div class="box">
-            <!-- 3D box faces -->
-            <div class="face front"></div>
-            <div class="face back"></div>
-            <div class="face left"></div>
-            <div class="face right"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
+    <div class="content">
+        <a href="index.html">
+            <h1>SHUKROON</h1>
+        </a>
+
+        <div class="box-container">
+            <div class="box">
+                <!-- 3D box faces -->
+                <div class="face front"></div>
+                <div class="face back"></div>
+                <div class="face left"></div>
+                <div class="face right"></div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
+            </div>
         </div>
+
+        <h2>Noam@Shukroon.com</h2>
     </div>
 </body>
 </html>
