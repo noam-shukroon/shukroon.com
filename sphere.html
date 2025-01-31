@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Wireframe Sphere</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xE6E2D6);  // Set background color
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Wireframe material with 3px thick lines
+        const material = new THREE.LineBasicMaterial({ 
+            color: 0x000000,
+            linewidth: 3  // Set line thickness to 3px
+        });
+
+        // Create latitude and longitude lines for the wireframe sphere
+        const sphereRadius = 5;
+        const latitudeLines = 20;  // Reduced number of latitude lines for smoother appearance
+        const longitudeLines = 40;  // Reduced number of longitude lines for smoother appearance
+
+        // Create the longitude lines (vertical lines)
+        for (let i = 0; i < longitudeLines; i++) {
+            const geometry = new THREE.BufferGeometry();
+            const positions = [];
+
+            for (let j = 0; j <= latitudeLines; j++) {
+                const latitude = Math.PI * (j / latitudeLines - 0.5);  // Latitude angle
+                const longitude = (i / longitudeLines) * 2 * Math.PI;  // Longitude angle
+
+                const x = sphereRadius * Math.cos(latitude) * Math.cos(longitude);
+                const y = sphereRadius * Math.sin(latitude);
+                const z = sphereRadius * Math.cos(latitude) * Math.sin(longitude);
+
+                positions.push(x, y, z);
+            }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            const line = new THREE.Line(geometry, material);
+            scene.add(line);
+        }
+
+        // Create the latitude lines (horizontal lines)
+        for (let i = 0; i < latitudeLines; i++) {
+            const geometry = new THREE.BufferGeometry();
+            const positions = [];
+
+            const latitude = Math.PI * (i / latitudeLines - 0.5);  // Latitude angle
+
+            for (let j = 0; j <= longitudeLines; j++) {
+                const longitude = (j / longitudeLines) * 2 * Math.PI;  // Longitude angle
+
+                const x = sphereRadius * Math.cos(latitude) * Math.cos(longitude);
+                const y = sphereRadius * Math.sin(latitude);
+                const z = sphereRadius * Math.cos(latitude) * Math.sin(longitude);
+
+                positions.push(x, y, z);
+            }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            const line = new THREE.Line(geometry, material);
+            scene.add(line);
+        }
+
+        // Camera position
+        camera.position.z = 15;
+
+        // Reset the rotation (no tilt)
+        scene.rotation.x = 0;
+        scene.rotation.z = 0;
+
+        // Rendering loop (without rotation)
+        function animate() {
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate); // Keep rendering without rotating
+        }
+
+        animate();
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+</body>
+</html>
