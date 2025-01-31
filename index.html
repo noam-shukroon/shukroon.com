@@ -31,40 +31,119 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 3vh; /* Adds space between the elements */
+            gap: 4vh; 
         }
 
         h1 {
-            font-size: clamp(4rem, 10vw, 10rem); /* Font size scales from 4rem to 10rem based on viewport */
+            font-size: clamp(3rem, 8vw, 6rem); /* Smaller text but maintains ratio */
             font-weight: 900;
             margin: 0;
             color: #000;
         }
 
         h2 {
-            font-size: clamp(2rem, 5vw, 5rem); /* Font size scales from 2rem to 5rem based on viewport */
+            font-size: clamp(1.5rem, 4vw, 3rem); /* Adjusted to maintain proportion with h1 */
             font-weight: 600;
             margin: 0;
             color: #000;
         }
 
         .logo {
-            height: 60vw; /* Scales logo based on viewport width */
-            max-height: 50vh; /* Restrict height on large screens */
+            height: calc(2 * (clamp(10rem, 20vw, 20rem))); /* Adjust logo size */
             transform: rotate(15deg);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(15deg);
         }
 
+        /* 3D Box container */
+        .box-container {
+            perspective: 1000px; /* Adds 3D effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            width: calc(2 * (clamp(10rem, 20vw, 20rem))); /* Scale box to fit logo */
+            height: calc(2 * (clamp(10rem, 20vw, 20rem))); /* Scale box to fit logo */
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateBox 10s infinite linear; /* Rotate box */
+        }
+
+        .box::before, .box::after, .box .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            border: 3px solid #000;
+        }
+
+        .box .front, .box .back, .box .left, .box .right, .box .top, .box .bottom {
+            background: transparent;
+        }
+
+        .box .front {
+            transform: translateZ(clamp(10rem, 20vw, 20rem));
+        }
+
+        .box .back {
+            transform: rotateY(180deg) translateZ(clamp(10rem, 20vw, 20rem));
+        }
+
+        .box .left {
+            transform: rotateY(-90deg) translateZ(clamp(10rem, 20vw, 20rem));
+        }
+
+        .box .right {
+            transform: rotateY(90deg) translateZ(clamp(10rem, 20vw, 20rem));
+        }
+
+        .box .top {
+            transform: rotateX(90deg) translateZ(clamp(10rem, 20vw, 20rem));
+        }
+
+        .box .bottom {
+            transform: rotateX(-90deg) translateZ(clamp(10rem, 20vw, 20rem));
+        }
+
+        @keyframes rotateBox {
+            0% {
+                transform: rotateY(0);
+            }
+            100% {
+                transform: rotateY(-360deg);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="content">
+
         <h1>SHUKROON</h1>
 
-        <a href="index.html">
+        <div class="box-container">
+                <div class="box">
+                    <!-- 3D box faces -->
+                    <div class="face front"></div>
+                    <div class="face back"></div>
+                    <div class="face left"></div>
+                    <div class="face right"></div>
+                    <div class="face top"></div>
+                    <div class="face bottom"></div>
+                
+                </div>
+            </div>
+
             <img src="11-resources/02-images/sphere.svg" alt="Logo" class="logo">
-        </a>
 
         <h2>Noam@Shukroon.com</h2>
+
     </div>
 </body>
 </html>
