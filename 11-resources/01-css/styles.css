@@ -1,6 +1,6 @@
 @font-face {
             font-family: 'EBGaramond-VariableFont_wght';
-            src: url('./21-global/03-fonts/EBGaramond-VariableFont_wght.ttf') format('truetype');
+            src: url('../../21-global/03-fonts/EBGaramond-VariableFont_wght.ttf') format('truetype');
         }
 
         :root {
