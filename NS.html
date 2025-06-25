@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shukroon</title>
+    <link rel="icon" href="./11-resources/02-images/ns-white.svg"/>
+    <link rel="apple-touch-icon" href="./11-resources/02-images/apple-touch-icon.png">
+    <link rel="stylesheet" href="./11-resources/01-css/styles.css">
+
+    <style>
+
+        img {
+            width: clamp(15rem, 80vw, 45rem); 
+            height: auto; 
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: clamp(1rem, 3vw, 2rem); /* Dynamic bottom padding */
+            left: clamp(1rem, 3vw, 2rem); /* Dynamic left padding */
+            cursor: pointer;
+            transition: transform 0.1s ease-in-out;
+            width: clamp(3rem, 5vw, 4rem); /* Scales dynamically */
+            height: auto;
+        }
+
+        .back-button:hover {
+            transform: scale(1.05);
+        }
+
+        .back-button svg {
+            width: 100%;
+            height: auto;
+            fill: black; /* Arrow color */
+            stroke: black; /* Outline */
+            stroke-width: 0.5;            
+        }
+    </style>
+</head>
+<body>
+
+    <img src="./11-resources/02-images/scope.png" alt="SHUKROON">
+
+    <a href="index.html" class="back-button">
+        <svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,25 L40,5 L40,15 L90,15 L90,35 L40,35 L40,45 Z" stroke="black" fill="black"/>
+        </svg>
+    </a>
+</body>
+</html>
