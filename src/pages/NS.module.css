@@ -1,0 +1,4 @@
+.scopeImage {
+  width: clamp(15rem, 80vw, 45rem);
+  height: auto;
+}

@@ -4,29 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shukroon</title>
-    <link rel="icon" href="./11-resources/02-images/ns-white.svg"/>
-    <link rel="apple-touch-icon" href="./11-resources/02-images/apple-touch-icon.png">
-    <link rel="stylesheet" href="./11-resources/01-css/styles.css">
-
-    <style>
-        img {
-            width: clamp(15rem, 33vw, 25rem); 
-            height: auto; 
-            cursor: pointer; /* Changes cursor to indicate it's clickable */
-            transition: transform 0.1s ease-in-out; /* Smooth animation */
-        }
-
-        img:hover {
-            transform: scale(1.05); /* Slightly enlarges image on hover */
-        }
-    </style>
-
+    <link rel="icon" href="/src/assets/images/ns-white.svg"/>
+    <link rel="apple-touch-icon" href="/src/assets/images/apple-touch-icon.png">
 </head>
 <body>
-    <div class="content">
-        <a href="NS.html">
-            <img src="./11-resources/02-images/ns.svg" alt="SHUKROON">
-        </a>
-    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

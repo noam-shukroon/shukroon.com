@@ -1,0 +1,56 @@
+.boxContainer {
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  --box-size: clamp(5rem, 15vw, 10rem);
+  width: calc(2 * var(--box-size));
+  height: calc(2 * var(--box-size));
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateBox 10s infinite linear;
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  border: 3px solid #000;
+}
+
+.front {
+  transform: translateZ(var(--box-size));
+}
+
+.back {
+  transform: rotateY(180deg) translateZ(var(--box-size));
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(var(--box-size));
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(var(--box-size));
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(var(--box-size));
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(var(--box-size));
+}
+
+@keyframes rotateBox {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(-360deg);
+  }
+}

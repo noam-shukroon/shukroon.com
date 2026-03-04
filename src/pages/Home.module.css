@@ -1,0 +1,10 @@
+.logo {
+  width: clamp(15rem, 33vw, 25rem);
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
