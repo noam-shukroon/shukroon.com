@@ -73,7 +73,7 @@
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 1.3rem;
+  gap: 2rem;
   width: 100%;
 }
 
@@ -85,7 +85,7 @@
   text-decoration: none;
   transition: opacity 0.15s ease;
   border-bottom: 1px solid #333;
-  padding-bottom: 0.4rem;
+  padding-bottom: 0.5rem;
 }
 
 .nav li:last-child .link {
