@@ -61,14 +61,18 @@ graph LR
     src --> global.css
 
     pages --> Home.tsx
+    pages --> Home.module.css
     pages --> NS.tsx
+    pages --> NS.module.css
     pages --> Info.tsx
     pages --> Cube.tsx
     pages --> Grid.tsx
     pages --> Sphere.tsx
 
     components --> BurgerMenu.tsx
+    components --> BurgerMenu.module.css
     components --> RotatingCube.tsx
+    components --> RotatingCube.module.css
     components --> WarpingGrid.tsx
     components --> WireframeSphere.tsx
 ```
